@@ -27,8 +27,11 @@ module.exports.createMovie = async (req, res, next) => {
       thumbnail,
       movieId,
       nameRU,
-      nameEN, } = req.body;
-    const newMovie = await Movie.create({country,
+      nameEN,
+    } = req.body;
+    const owner = req.user._id;
+    const newMovie = await Movie.create({
+      country,
       director,
       duration,
       year,
@@ -39,7 +42,8 @@ module.exports.createMovie = async (req, res, next) => {
       owner,
       movieId,
       nameRU,
-      nameEN, });
+      nameEN,
+    });
     res.status(statusCode.CREATED).send(newMovie);
   } catch (err) {
     next(err);

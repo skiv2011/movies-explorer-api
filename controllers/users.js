@@ -92,9 +92,11 @@ module.exports.login = async (req, res, next) => {
         sameSite: 'none',
         secure: true,
       })
-      .send({ message: 'Токен сохранен в куки',
-      name: user.name,
-      email: user.email, });
+      .send({
+        message: 'Токен сохранен в куки',
+        name: user.name,
+        email: user.email,
+      });
   } catch (err) {
     next(err);
   }
