@@ -62,7 +62,7 @@ module.exports.deleteMovie = async (req, res, next) => {
       return;
     }
     const deletedMovie = await Movie.deleteOne();
-    res.status(statusCode.OK).send(deletedMovie);
+    res.status(statusCode.OK).send({ deletedMovie });
   } catch (err) {
     if (err instanceof mongoose.Error.CastError) {
       next(new ValidationError('Неверный формат id фильма.'));

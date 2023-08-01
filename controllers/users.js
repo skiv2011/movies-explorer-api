@@ -62,7 +62,13 @@ module.exports.updateUser = async (req, res, next) => {
     );
     res.status(statusCode.OK).send(user);
   } catch (err) {
-    next(err);
+    if (err instanceof mongoose.Error.ValidationError) {
+      next(new ValidationError('Переданы некорректные данные.'));
+    } else if (err.code === 11000) {
+      next(new ConflictError('Пользователь с таким email уже зарегистрирован.'));
+    } else {
+      next(err);
+    }
   }
 };
 
@@ -81,7 +87,6 @@ module.exports.login = async (req, res, next) => {
     }
     const token = await jwt.sign(
       { _id: user._id },
-      // eslint-disable-next-line no-undef
       NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
       { expiresIn: '7d' },
     );
