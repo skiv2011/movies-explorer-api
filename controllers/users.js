@@ -16,7 +16,7 @@ module.exports.getUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id);
     if (!user) {
-      next(new NotFoundError('Пользователь c таким id не найден.'));
+      next(new NotFoundError('Пользователь не найден.'));
       return;
     }
     res.status(statusCode.OK).send({ name: user.name, email: user.email });
