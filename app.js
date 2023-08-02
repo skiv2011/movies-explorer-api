@@ -9,8 +9,9 @@ const { limiter } = require('./middlewares/limiter');
 const { errorHandler } = require('./middlewares/errorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const routes = require('./routes/index');
+const config = require('./utils/config');
 
-const { PORT = 3000 } = process.env;
+const { PORT = config.DEFAULT_PORT, DB_ADDRESS = config.DEFAULT_MONGO } = process.env;
 mongoose.set('strictQuery', true);
 
 const app = express();
@@ -45,7 +46,7 @@ app.use(errors());
 app.use(errorHandler);
 
 mongoose
-  .connect('mongodb://127.0.0.1/bitfilmsdb')
+  .connect(DB_ADDRESS)
   .then(() => console.log('Успешное подключение к MongoDB'))
   .catch((err) => console.error('Ошибка подключения:', err));
 

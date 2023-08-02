@@ -61,7 +61,7 @@ module.exports.deleteMovie = async (req, res, next) => {
       next(new ForbiddenError('Это не ваш фильм!'));
       return;
     }
-    const deletedMovie = await Movie.deleteOne();
+    const deletedMovie = await Movie.findByIdAndDelete(req.params._id);
     res.status(statusCode.OK).send({ deletedMovie });
   } catch (err) {
     if (err instanceof mongoose.Error.CastError) {
