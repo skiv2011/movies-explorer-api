@@ -24,6 +24,9 @@ const options = {
     'https://localhost:3001',
     'http://movies.skiv2011.nomoreparties.sbs',
     'https://movies.skiv2011.nomoreparties.sbs',
+    'http://api.movies.skiv2011.nomoreparties.sbs',
+    'https://api.movies.skiv2011.nomoreparties.sbs'
+
   ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   preflightContinue: false,
