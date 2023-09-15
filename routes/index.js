@@ -3,10 +3,10 @@ const { loginValidation, registerValidation } = require('../middlewares/validato
 const usersRouter = require('./users');
 const moviesRouter = require('./movies');
 const { auth } = require('../middlewares/auth');
-const { login, logout, createUser } = require('../controllers/users');
+const { signin, logout, createUser } = require('../controllers/users');
 const NotFoundError = require('../error/notfound-error');
 
-router.post('/signin', loginValidation, login);
+router.post('/signin', loginValidation, signin);
 
 router.post('/signup', registerValidation, createUser);
 
