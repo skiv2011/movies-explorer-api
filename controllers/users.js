@@ -72,7 +72,7 @@ module.exports.updateUser = async (req, res, next) => {
   }
 };
 
-module.exports.login = async (req, res, next) => {
+module.exports.signin = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email }).select('+password');
