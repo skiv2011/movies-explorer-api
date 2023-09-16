@@ -25,7 +25,7 @@ module.exports.createMovie = async (req, res, next) => {
       image,
       trailerLink,
       thumbnail,
-      movieId,
+      id,
       nameRU,
       nameEN,
     } = req.body;
@@ -40,7 +40,7 @@ module.exports.createMovie = async (req, res, next) => {
       trailerLink,
       thumbnail,
       owner,
-      movieId,
+      id,
       nameRU,
       nameEN,
     });
@@ -50,19 +50,19 @@ module.exports.createMovie = async (req, res, next) => {
   }
 };
 
-module.exports.deleteMovie = async (req, res, next) => {
+module.exports.delMovie = async (req, res, next) => {
   try {
     const movie = await Movie.findById(req.params._id);
     if (!movie) {
-      next(new NotFoundError('Фильм с таким таким id не найдена.'));
+      next(new NotFoundError('Фильм с таким таким id не найден.'));
       return;
     }
     if (req.user._id !== movie.owner.toString()) {
       next(new ForbiddenError('Это не ваш фильм!'));
       return;
     }
-    const deletedMovie = await Movie.findByIdAndDelete(req.params._id);
-    res.status(statusCode.OK).send({ deletedMovie });
+    const deletedMovie = await movie.deleteOne();
+    res.status(statusCode.OK).send( deletedMovie );
   } catch (err) {
     if (err instanceof mongoose.Error.CastError) {
       next(new ValidationError('Неверный формат id фильма.'));

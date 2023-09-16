@@ -4,11 +4,11 @@ const { createMovieValidator, deleteMovieValidator } = require('../middlewares/v
 const {
   getMovies,
   createMovie,
-  deleteMovie,
+  delMovie,
 } = require('../controllers/movies');
 
 router.get('/', getMovies);
 router.post('/', createMovieValidator, createMovie);
-router.delete('/:_id', deleteMovieValidator, deleteMovie);
+router.delete('/:_id', deleteMovieValidator, delMovie);
 
 module.exports = router;
